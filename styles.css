@@ -1,0 +1,27 @@
+a {
+	color:green;
+	font-size:15px;
+}
+
+body {
+	background:#FFFFFF;
+}
+
+#headdiv { 	
+	top:initial;
+	background:#34ebb7;
+	font-size:20px;
+	border:1px solid #1c4f40;
+}
+
+#footer { 
+	position:static;
+	bottom:50px;
+	background:#7ea398;
+	padding:15px;
+}
+
+.headlinks {
+	color:#344feb;
+	font-size:20px;
+}
