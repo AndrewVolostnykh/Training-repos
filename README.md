@@ -1,4 +1,3 @@
-# Training my skills in github
-Repository to train skills in gihub
+# Some frontend here, m?
 
-Here i will posting html/css trainig files.
+Here saved me some taking technology of frontend ;D
