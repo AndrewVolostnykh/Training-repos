@@ -4,25 +4,46 @@ a {
 
 .header_perent {
 	background-color: #0958C0;
-	max-width: 100%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: stretch;
+	display: grid;
+	grid-template-columns: auto auto;
+	padding: 10px;
 }
 
 .header_inherited {
 	padding: 16px;
+	max-width: 100%;
 	text-align: center;
+	border: 1px solid #000000;
 }
+
 
 .body_parent {
 	background-color: #B4E6F0;
-	display: flex;
+	display: grid;
+	grid-template-areas: 'left left left left left left right'
+						'left left left left left left right'
+						'left left left left left left right'
+						'left left left left left left bottom'; 
 }
 
-.body_inherited {
+.body_parent > div {
+	background-color: rgba(255, 255, 255, 0.8);
+  	text-align: left;
+  	padding: 20px;
+ 	font-size: 23px;
+ 	border: 10px solid #B4E6F0;
+}
+
+.body_left {
+	grid-area: left;
+}
+
+.body_right {
+	grid-area: right;
+}
+
+.right_bottom {
+	grid-area: bottom;
 }
 
 #header_name {
@@ -33,4 +54,9 @@ a {
 #header_menu {
 	font-size: 30px;
 	color: #FFFFFF;
+}
+
+#menu_links {
+	margin-left: 10px;
+	font-size: 20px;
 }

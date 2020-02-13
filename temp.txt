@@ -1,0 +1,36 @@
+a {
+	color: #FFFFFF;
+}
+
+.header_perent {
+	background-color: #0958C0;
+	max-width: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.header_inherited {
+	padding: 16px;
+	text-align: center;
+}
+
+.body_parent {
+	background-color: #B4E6F0;
+	display: flex;
+}
+
+.body_inherited {
+}
+
+#header_name {
+	font-size: 40px;
+	color: #FFFFFF;
+}
+
+#header_menu {
+	font-size: 30px;
+	color: #FFFFFF;
+}
