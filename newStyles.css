@@ -1,0 +1,33 @@
+.headleft {
+	margin-top: 3%;
+	margin-left: 5px;
+}
+
+.headright
+{
+	margin-top: 3%;
+}
+
+.headgen
+{
+	background-color: #7DBEF6;
+}
+
+.bodyright 
+{
+	margin-top: 3%;
+}
+
+.bodyleft
+{
+	margin-top: 3%;
+}
+
+#bodytext 
+{
+	margin-top: 3%;
+}
+
+-p { /*if you delete '-' all paragraph font will have 50px size */
+	font-size: 50px;
+}
