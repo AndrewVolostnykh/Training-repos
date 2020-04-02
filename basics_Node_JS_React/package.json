@@ -1,0 +1,20 @@
+{
+  "name": "basics_node_js_react",
+  "version": "1.0.0",
+  "description": "Directory to learn Node, js, react and other of web",
+  "main": "index.html",
+  "scripts": {
+    "start":"npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite":"lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/AndrewVolostnykh/Training-repos.git)"
+  },
+  "author": "Andrew Volostnykh",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
