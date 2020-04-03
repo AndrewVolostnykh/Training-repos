@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Hello js</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -22,6 +23,17 @@
 	<br/><br/>
 	<button type="button" onclick="inputUser()">Input</button>
 	<p id="result">your inputs will be here</p>
+	<br/><br/>
+	Some animation may be? 
+	Lets check this buttons: 
+	<div class="button" id="color" onclick="changeColor(this)">Change color</div>
+	<div class="button" id="text" onclick="changeText(this)">Change text</div>
+	<div class="button" id="colorText" onclick="changeTextColor(this)">Change color and text</div>
+	<br/><br/>
+	<br/><br/>
+	<br/><br/>
+	<div class="newDiv" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">
+	Mouse over me!!! </div>
 
 
 	<script type="text/javascript" src="basic.js"></script>
