@@ -1,7 +1,10 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 
 var app = express();
-var bodyParser = require('body-parser');
+var db;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -21,35 +24,47 @@ var artists = [
 	}
 ];
 
-app.listen(3001, function(){
-	console.log('3001:api started');
-})
 
 app.get('/nodepart', function(req, res){
 	res.send('hello api!');
 })
 
+// show all artists
 app.get('/artists', function(req, res){
-	res.send(artists);
-})
+	db.collection('artists').find().toArray(function(err, docs){
+		if(err){
+			console.log(err);
+			return res.sendStatus(500);
+		}
 
+		res.send(docs);
+	})
+})
+// show exactly artist selected by id
 app.get('/artists/:id', function(req, res){
-	console.log(req.params);
-	var artist = artists.find(function (artist) {
-		return artist.id === Number(req.params.id)
-	});
+	db.collection('artists').findOne({_id: ObjectID(req.params.id) }, function(err, doc){
+		if(err){
+			console.log(err);
+			return res.sendStatus(500);
+		}
 
-	res.send(artist);
+		res.send(doc);
+	})
 })
 
+//add new artist
 app.post('/artists', function(req, res){
 	var artist = {
-		id:Date.now(),
 		name:req.body.name
 	};
-	artists.push(artist);
-	console.log(req.body);
-	res.send(artist);
+
+	db.collection('artists').insert(artist, function(err, result){
+		if(err){
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		res.send(artist);
+	})
 })
 
 app.put('/artists/:id', function(req, res){
@@ -69,3 +84,14 @@ app.delete('/artists/:id', function(req, res){
 	res.sendStatus(200);
 })
 
+MongoClient.connect('mongodb://localhost:20100/artists', function(err, database){
+	if(err){
+		return console.log(err);
+	}
+
+	db = database.db('artists');
+
+	app.listen(3001, function(){
+		console.log('Use localhost:3001 to connect to application.\n Mongodb working on 20100 port. \n Application started');
+	})
+})
