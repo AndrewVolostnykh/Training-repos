@@ -3,27 +3,11 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
+var db = require('./db');
 var app = express();
-var db;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
-var artists = [
-	{
-		id:1,
-		name:'FunFurMob'
-	},
-	{
-		id:2,
-		name:'psycho-diller glIBERTINE'
-	},
-	{
-		id:3,
-		name:'Rammstein'
-	}
-];
-
 
 app.get('/nodepart', function(req, res){
 	res.send('hello api!');
@@ -31,7 +15,7 @@ app.get('/nodepart', function(req, res){
 
 // show all artists
 app.get('/artists', function(req, res){
-	db.collection('artists').find().toArray(function(err, docs){
+	db.get().collection('artists').find().toArray(function(err, docs){
 		if(err){
 			console.log(err);
 			return res.sendStatus(500);
@@ -42,7 +26,7 @@ app.get('/artists', function(req, res){
 })
 // show exactly artist selected by id
 app.get('/artists/:id', function(req, res){
-	db.collection('artists').findOne({_id: ObjectID(req.params.id) }, function(err, doc){
+	db.get().collection('artists').findOne({_id: ObjectID(req.params.id) }, function(err, doc){
 		if(err){
 			console.log(err);
 			return res.sendStatus(500);
@@ -58,7 +42,7 @@ app.post('/artists', function(req, res){
 		name:req.body.name
 	};
 
-	db.collection('artists').insert(artist, function(err, result){
+	db.get().collection('artists').insert(artist, function(err, result){
 		if(err){
 			console.log(err);
 			return res.sendStatus(500);
@@ -68,30 +52,39 @@ app.post('/artists', function(req, res){
 })
 
 app.put('/artists/:id', function(req, res){
-		var artist = artists.find(function (artist) {
-		return artist.id === Number(req.params.id)
-	});
-
-	artist.name = req.body.name;
-	res.send(artist);
+	db.get().collection('artists').update(
+		{ _id: ObjectID(req.params.id) },
+		{ $set:{name: req.body.name} },
+		{upsert:false, multi:false},
+		function (err, result){
+			if(err){
+				console.log(err);
+				return res.sendStatus(500);
+			}
+			res.sendStatus(200);
+		}
+	)
 })
 
 app.delete('/artists/:id', function(req, res){
-	artists = artists.filter(function (artist){
-		return artist.id !== Number(req.params.id);
-	})
-
-	res.sendStatus(200);
+	db.get().collection('artists').deleteOne(
+		{ _id: ObjectID(req.params.id) },
+		function (err, result){
+			if(err){
+				console.log(err);
+				return res.sendStatus(500);
+			}
+			res.sendStatus(200);
+		}
+	)
 })
 
-MongoClient.connect('mongodb://localhost:20100/artists', function(err, database){
+db.connect('mongodb://localhost:20100/artists', function(err){
 	if(err){
 		return console.log(err);
 	}
 
-	db = database.db('artists');
-
 	app.listen(3001, function(){
-		console.log('Use localhost:3001 to connect to application.\n Mongodb working on 20100 port. \n Application started');
+		console.log('==================================================\nApplication started port:3001');
 	})
 })
