@@ -1,0 +1,56 @@
+            var alarmSound = new Audio();
+            alarmSound.src = 'alarmSound.mp3';
+
+            function addAlarm(button) {
+
+                var ms = document.getElementById('alarmTime').valueAsNumber;
+
+                if(isNaN(ms)){
+                    alert('Invalid Date');
+                    return;
+                }
+                
+                var alarm = new Date(ms);
+                var alarmTime = alarm;
+                alarmTime.setHours(alarmTime.getHours() - 3); // processing time considering timezone 
+                
+                //  | I dont know
+                //  | why this dont work :( 
+                //  V
+                /* new Date(alarm.getUTCFullYear(),
+                alarm.getUTCMonth(), alarm.getUTCDay(),
+                alarm.getUTCHours(), alarm.getUTCMinutes(),
+                alarm.getUTCSeconds()); // processing to UTC time (GMT+3 for Ukraine)*/
+
+                var now = (new Date());
+
+                var difference = alarmTime.getTime() - now;
+
+                console.log("got time: " + alarm + " processed time: " + alarmTime + "\n now: " + now + "\n dif:  " + difference);
+
+                if(difference < 0){
+                    alert("Specified time already passed!");
+                    return;
+                }
+
+                setTimeout(initAlarm, difference);
+
+                button.innerText = 'Delete alarm';
+                button.setAttribute('onclick', 'deleteAlarm(this);');
+            };
+
+            function deleteAlarm(button) {
+                button.innerText = 'Set alarm';
+                button.setAttribute('onclick', 'addAlarm(this)');
+            };  
+
+            function initAlarm () {
+                alarmSound.play();
+                document.getElementById('alarmOptions').style.display = '';
+            };
+
+            function stopAlarm() {
+                alarmSound.pause();
+                alarmSound.currentTime = 0;
+                document.getElementById('alarmOptions').style.display = 'none';
+            };
