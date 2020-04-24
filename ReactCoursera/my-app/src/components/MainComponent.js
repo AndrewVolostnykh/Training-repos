@@ -27,7 +27,7 @@ class Main extends Component {
             <NavbarBrand href="/">Restorante ConFusion</NavbarBrand>
           </div>
         </Navbar>
-        <Menu dishes={this.state.dishes}
+        <Menu dish={this.state.dishes}
             onClick={(dishId) => this.onDishSelect(dishId)} />
         <Dishdetail selectedDish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
       </div>
