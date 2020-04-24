@@ -1,7 +1,6 @@
 import React , { Component } from 'react';
 import { Card ,
-    CardImg , CardImgOverlay ,
-     CardText , CardBody ,
+    CardImg , CardText , CardBody ,
       CardTitle } from 'reactstrap';
 
 class Dishdetail extends Component{
