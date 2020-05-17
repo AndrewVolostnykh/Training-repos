@@ -7,19 +7,18 @@ import { ConfigureStore } from './redux/configureStore';
 
 const store = ConfigureStore();
 
-class App extends Component {
+class App extends Component  {
 
-  
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App">
+          <div>
             <Main />
           </div>
         </BrowserRouter>
       </Provider>
-      );
+    );
   }
 }
 
